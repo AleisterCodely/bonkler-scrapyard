@@ -962,4 +962,8 @@ tr:nth-child(even) {
 		min-width: 95vw;
 		max-width: 95vw;
 	}
+	#SaveBonkler {
+		height: 52px;
+		background: antiquewhite;
+	}
 }
