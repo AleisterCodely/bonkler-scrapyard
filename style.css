@@ -79,6 +79,7 @@ a {
 
 img.bonkler {
 	image-rendering: pixelated;
+	max-width: 100vw;
 }
 
 /* for downloading bonkler img in creator. not added to the DOM */
@@ -553,7 +554,6 @@ img.bonkler {
 }
 
 .view {
-	position: absolute; /* width: 912px; */
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -873,9 +873,11 @@ tr:nth-child(even) {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	max-width: 100%;
 }
 #creator-wrapper {
 	display: grid;
+	max-width: 100%;
 }
 /* frame and img occupy the same grid */
 #bonkler-frame-creator {
@@ -924,16 +926,40 @@ tr:nth-child(even) {
 }
 
 #trait-btns {
+	max-width: 100%;
 	display: grid;
 	grid-template-columns: 2;
 }
+
 #random-bonkler {
 	grid-column: 1;
 	font-weight: bold !important;
 	font-size: var(--medium) !important;
 }
+
 #SaveBonkler {
-	grid-column: 2;
+	margin: 20px;
+	grid-column: 1;
 	font-weight: bold !important;
 	font-size: var(--medium) !important;
+}
+
+@media (max-aspect-ratio: 5/4) {
+	#creator-bonkler-name {
+		width: 95vw;
+		height: 36px;
+		margin: auto 0px;
+	}
+	#trait-selector-container {
+		padding: 5px;
+	}
+	#trait-selector-container p {
+		padding-left: 1%;
+	}
+	select,
+	input {
+		height: 36px;
+		min-width: 95vw;
+		max-width: 95vw;
+	}
 }
