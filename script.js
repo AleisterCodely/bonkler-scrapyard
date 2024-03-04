@@ -300,7 +300,7 @@ const data = {
 	},
 };
 
-let money = 0;
+let money = "";
 let bonklerName = "Bonkler";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -319,7 +319,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			handleName(event.target.value);
 		});
 	money = document.getElementById("BonklerMoney").value;
-	handleMoney(money);
+	bonklerName = document.getElementById("creator-bonkler-name").value;
+	if (money != "") handleMoney(money);
 });
 
 function populateSelectors(data) {
@@ -361,7 +362,7 @@ function handleSelection(category, key) {
 function buildBonkler() {
 	const template = `${state.BG}${state.Armor}${state.Body}${state.Head}${state.Face}${state.Hand}${state.Offhand}${state.Pilot}`;
 	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
-		money > 0 ? money : 0
+		money != "" && money
 	}`;
 	document.getElementById("Bonkler").src = imageUrl;
 }
