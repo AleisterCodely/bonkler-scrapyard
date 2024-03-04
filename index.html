@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="script.js"></script>
+		<title>Bonkler Scrapyard</title>
+		<style>
+			.container {
+				display: flex;
+				align-items: stretch;
+			}
+			.selectors {
+				flex-grow: 1;
+			}
+			.image-container {
+				flex-grow: 2;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			img {
+				height: 100%;
+				width: auto;
+			}
+			p {
+				display: inline-block;
+			}
+			.selectors,
+			.image-container {
+				padding: 10px;
+			}
+			.selector-group {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+			}
+
+			.selector-group p {
+				margin-right: 10px;
+			}
+
+			.selectors {
+				display: block;
+				padding: 10px;
+			}
+
+			input,
+			button {
+				display: block;
+				margin-top: 10px;
+			}
+
+			input,
+			button {
+				display: block;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="selectors">
+				<div class="selector-group">
+					<p>Background:</p>
+					<select id="BG">
+						<option value="00">BG</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Armor:</p>
+					<select id="Armor">
+						<option value="00">Armor</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Body:</p>
+					<select id="Body">
+						<option value="00">Body</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Head:</p>
+					<select id="Head">
+						<option value="00">Head</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Face:</p>
+					<select id="Face">
+						<option value="00">Face</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Hand:</p>
+					<select id="Hand">
+						<option value="00">Hand</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Offhand:</p>
+					<select id="Offhand">
+						<option value="00">Offhand</option>
+					</select>
+				</div>
+				<div class="selector-group">
+					<p>Pilot:</p>
+					<select id="Pilot">
+						<option value="00">Pilot</option>
+					</select>
+				</div>
+				<input type="number" id="BonklerMoney" placeholder="Number?" />
+				<button id="BuildBonkler">Build Bonkler</button>
+			</div>
+			<div class="image-container">
+				<img
+					id="Bonkler"
+					src="https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=0000000000000000&meta=no&factor=4"
+					alt="Descriptive Alt Text"
+				/>
+			</div>
+		</div>
+	</body>
+</html>
