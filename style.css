@@ -961,6 +961,7 @@ tr:nth-child(even) {
 		height: 36px;
 		min-width: 95vw;
 		max-width: 95vw;
+		margin: 0 -1px;
 	}
 	#SaveBonkler {
 		height: 52px;
