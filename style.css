@@ -367,6 +367,7 @@ img.bonkler {
 	#creator-container {
 		width: var(--gallery-creator-width-desktop);
 		height: 865px;
+		margin: 0 auto;
 		/* background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/creator_bg.svg") no-repeat; */
 	}
 
