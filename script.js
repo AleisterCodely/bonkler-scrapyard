@@ -301,16 +301,22 @@ const data = {
 };
 
 let money = 0;
+let bonklerName = "Bonkler";
 
 document.addEventListener("DOMContentLoaded", function () {
 	populateSelectors(data);
 	document
-		.getElementById("BuildBonkler")
-		.addEventListener("click", handleSubmit);
+		.getElementById("SaveBonkler")
+		.addEventListener("click", handleSave);
 	document
 		.getElementById("BonklerMoney")
 		.addEventListener("change", (event) => {
 			handleMoney(event.target.value);
+		});
+	document
+		.getElementById("creator-bonkler-name")
+		.addEventListener("change", (event) => {
+			handleName(event.target.value);
 		});
 	money = document.getElementById("BonklerMoney").value;
 	handleMoney(money);
@@ -349,18 +355,46 @@ const state = {
 
 function handleSelection(category, key) {
 	state[category] = key.padStart(2, "0");
+	buildBonkler();
+}
+
+function buildBonkler() {
+	const template = `${state.BG}${state.Armor}${state.Body}${state.Head}${state.Face}${state.Hand}${state.Offhand}${state.Pilot}`;
+	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
+		money > 0 ? money : 0
+	}`;
+	document.getElementById("Bonkler").src = imageUrl;
 }
 
 function handleMoney(value) {
 	const gwei = 1e18;
 	const percent = (70 / 100) * value;
 	money = percent * gwei;
+	buildBonkler();
 }
 
-function handleSubmit() {
-	const template = `${state.BG}${state.Armor}${state.Body}${state.Head}${state.Face}${state.Hand}${state.Offhand}${state.Pilot}`;
-	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
-		money > 0 ? money : 0
-	}`;
-	document.getElementById("Bonkler").src = imageUrl;
+function handleName(value) {
+	bonklerName = value;
+}
+
+function handleSave() {
+	const canvas = document.createElement("canvas");
+	const ctx = canvas.getContext("2d");
+	const img = new Image();
+
+	img.crossOrigin = "Anonymous"; // Attempt to request CORS permission
+	img.onload = function () {
+		canvas.width = img.width;
+		canvas.height = img.height;
+		ctx.drawImage(img, 0, 0);
+		const dataURL = canvas.toDataURL("image/png");
+
+		const element = document.createElement("a");
+		element.setAttribute("href", dataURL);
+		element.setAttribute("download", `${bonklerName}.png`);
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+	};
+	img.src = document.getElementById("Bonkler").src; // The external image URL
 }

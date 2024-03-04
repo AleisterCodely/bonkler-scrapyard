@@ -5,119 +5,139 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="script.js"></script>
 		<title>Bonkler Scrapyard</title>
-		<style>
-			.container {
-				display: flex;
-				align-items: stretch;
-			}
-			.selectors {
-				flex-grow: 1;
-			}
-			.image-container {
-				flex-grow: 2;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			img {
-				height: 100%;
-				width: auto;
-			}
-			p {
-				display: inline-block;
-			}
-			.selectors,
-			.image-container {
-				padding: 10px;
-			}
-			.selector-group {
-				display: flex;
-				align-items: center;
-				margin-bottom: 10px;
-			}
-
-			.selector-group p {
-				margin-right: 10px;
-			}
-
-			.selectors {
-				display: block;
-				padding: 10px;
-			}
-
-			input,
-			button {
-				display: block;
-				margin-top: 10px;
-			}
-
-			input,
-			button {
-				display: block;
-				margin-bottom: 10px;
-			}
-		</style>
+		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div class="container">
-			<div class="selectors">
-				<div class="selector-group">
-					<p>Background:</p>
-					<select id="BG">
-						<option value="00">BG</option>
-					</select>
+		<div class="view" id="creator-view" style="display: block">
+			<div id="creator-container">
+				<div class="gallery-creator-top-bar">
+					<input
+						type="text"
+						id="creator-bonkler-name"
+						placeholder="Bonkler name?"
+					/>
 				</div>
-				<div class="selector-group">
-					<p>Armor:</p>
-					<select id="Armor">
-						<option value="00">Armor</option>
-					</select>
+				<div id="creator-inner-container">
+					<div id="creator-wrapper">
+						<img
+							class="bonkler"
+							id="Bonkler"
+							src="https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=0000000000000000&meta=no&factor=4"
+							alt="Descriptive Alt Text"
+						/>
+						<div id="trait-selector-container">
+							<div id="trait-texts">
+								<span
+									class="text-grey-normal"
+									style="float: left"
+									>Trait Selector</span
+								>
+								<!-- <span style="float: right;"> 
+                                    <a class="text-grey-normal-underline" id="save-bonkler" target="_blank" >Save</a>
+                                </span> -->
+							</div>
+
+							<!-- mobile -->
+							<div id="trait-selector-mobile">
+								<button class="sqr prev"></button>
+								<div class="trait-selector-textbox">
+									<p
+										class="selected-trait"
+										id="cur-trait-display"
+									>
+										Face: undefined
+									</p>
+									<button
+										id="expand-btn-trait-selector"
+									></button>
+								</div>
+								<div id="traits-dropdown">
+									<p></p>
+									<!-- leave a blank slot at the top -->
+									<!-- todo traits-dropdown:nth-child(even) {  } -->
+									<p>1</p>
+									<p class="traits-grey-bg">2</p>
+									<p>3</p>
+									<p class="traits-grey-bg">4</p>
+									<p class="selected-trait">5</p>
+									<p class="traits-grey-bg">6</p>
+									<p>7</p>
+									<p class="traits-grey-bg">8</p>
+									<!-- <p>9</p> -->
+									<div id="traits-dropdown-shadow"></div>
+								</div>
+								<button class="sqr next"></button>
+							</div>
+
+							<!-- desktop -->
+							<div id="trait-selector-desktop">
+								<div class="trait-wrapper">
+									<p>Background:</p>
+									<select id="BG">
+										<option value="00">Background</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Armor:</p>
+									<select id="Armor">
+										<option value="00">Armor</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Body:</p>
+									<select id="Body">
+										<option value="00">Body</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Head:</p>
+									<select id="Head">
+										<option value="00">Head</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Face:</p>
+									<select id="Face">
+										<option value="00">Face</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Hand:</p>
+									<select id="Hand">
+										<option value="00">Hand</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Offhand:</p>
+									<select id="Offhand">
+										<option value="00">Offhand</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Pilot:</p>
+									<select id="Pilot">
+										<option value="00">Pilot</option>
+									</select>
+								</div>
+								<div class="trait-wrapper">
+									<p>Number:</p>
+									<input
+										type="number"
+										id="BonklerMoney"
+										placeholder="Number?"
+									/>
+								</div>
+							</div>
+
+							<!-- random & save btn -->
+							<div id="trait-btns">
+								<button class="rect-large" id="SaveBonkler">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="selector-group">
-					<p>Body:</p>
-					<select id="Body">
-						<option value="00">Body</option>
-					</select>
-				</div>
-				<div class="selector-group">
-					<p>Head:</p>
-					<select id="Head">
-						<option value="00">Head</option>
-					</select>
-				</div>
-				<div class="selector-group">
-					<p>Face:</p>
-					<select id="Face">
-						<option value="00">Face</option>
-					</select>
-				</div>
-				<div class="selector-group">
-					<p>Hand:</p>
-					<select id="Hand">
-						<option value="00">Hand</option>
-					</select>
-				</div>
-				<div class="selector-group">
-					<p>Offhand:</p>
-					<select id="Offhand">
-						<option value="00">Offhand</option>
-					</select>
-				</div>
-				<div class="selector-group">
-					<p>Pilot:</p>
-					<select id="Pilot">
-						<option value="00">Pilot</option>
-					</select>
-				</div>
-				<input type="number" id="BonklerMoney" placeholder="Number?" />
-				<button id="BuildBonkler">Build Bonkler</button>
-			</div>
-			<div class="image-container">
-				<img
-					id="Bonkler"
-					src="https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=0000000000000000&meta=no&factor=4"
-					alt="Descriptive Alt Text"
-				/>
 			</div>
 		</div>
 	</body>
