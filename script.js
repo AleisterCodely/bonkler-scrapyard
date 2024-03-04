@@ -361,8 +361,8 @@ function handleSelection(category, key) {
 
 function buildBonkler() {
 	const template = `${state.BG}${state.Armor}${state.Body}${state.Head}${state.Face}${state.Hand}${state.Offhand}${state.Pilot}`;
-	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
-		money != "" && money
+	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&${
+		money != "" ? `reserve=${money}` : ""
 	}`;
 	document.getElementById("Bonkler").src = imageUrl;
 }
