@@ -303,49 +303,8 @@ const data = {
 	],
 };
 
-let money = "";
 let bonklerName = "Bonkler";
-
-document.addEventListener("DOMContentLoaded", function () {
-	populateSelectors(data);
-	document
-		.getElementById("SaveBonkler")
-		.addEventListener("click", handleSave);
-	document
-		.getElementById("BonklerMoney")
-		.addEventListener("change", (event) => {
-			handleMoney(event.target.value);
-		});
-	document
-		.getElementById("creator-bonkler-name")
-		.addEventListener("change", (event) => {
-			handleName(event.target.value);
-		});
-	money = document.getElementById("BonklerMoney").value;
-	bonklerName = document.getElementById("creator-bonkler-name").value;
-	if (money != "") handleMoney(money);
-});
-
-function populateSelectors(data) {
-	Object.entries(data).forEach(([category, options]) => {
-		const selectElement = document.getElementById(category);
-		if (!selectElement) return;
-
-		options.forEach((option) => {
-			const optionElement = document.createElement("option");
-			optionElement.value = option.key;
-			optionElement.textContent = option.value;
-			selectElement.appendChild(optionElement);
-		});
-
-		selectElement.addEventListener("change", (event) => {
-			const selectedKey = event.target.value;
-			handleSelection(category, selectedKey); // Pass both category and selected key
-		});
-	});
-}
-
-const state = {
+let templateState = {
 	BG: "00",
 	Armor: "00",
 	Body: "00",
@@ -356,31 +315,66 @@ const state = {
 	Pilot: "00",
 };
 
+document.addEventListener("DOMContentLoaded", function () {
+	const saveButton = document.getElementById("SaveBonkler");
+	const bonklerMoneyInput = document.getElementById("BonklerMoney");
+	const bonklerNameInput = document.getElementById("creator-bonkler-name");
+	const bonklerImage = document.getElementById("Bonkler");
+
+	populateSelectors(data);
+	saveButton.addEventListener("click", () =>
+		handleSave(bonklerImage, bonklerName)
+	);
+	bonklerMoneyInput.addEventListener("change", (event) =>
+		handleMoneyChange(event.target.value)
+	);
+	bonklerNameInput.addEventListener("change", (event) => {
+		bonklerName = event.target.value || "Bonkler";
+	});
+
+	handleMoneyChange(bonklerMoneyInput.value);
+	bonklerName = bonklerNameInput.value || "Bonkler";
+});
+
+function populateSelectors(data) {
+	Object.entries(data).forEach(([category, options]) => {
+		const selectElement = document.getElementById(category);
+		if (!selectElement) return;
+
+		options.forEach(({ key, value }) => {
+			const optionElement = document.createElement("option");
+			optionElement.value = key;
+			optionElement.textContent = value;
+			selectElement.appendChild(optionElement);
+		});
+
+		selectElement.addEventListener("change", (event) =>
+			handleSelection(category, event.target.value)
+		);
+	});
+}
+
 function handleSelection(category, key) {
-	state[category] = key.padStart(2, "0");
+	templateState[category] = key.padStart(2, "0");
 	buildBonkler();
 }
 
 function buildBonkler() {
-	const template = `${state.BG}${state.Armor}${state.Body}${state.Head}${state.Face}${state.Hand}${state.Offhand}${state.Pilot}`;
-	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&${
-		money != "" ? `reserve=${money}` : ""
+	const template = Object.values(templateState).join("");
+	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
+		money || ""
 	}`;
 	document.getElementById("Bonkler").src = imageUrl;
 }
 
-function handleMoney(value) {
+function handleMoneyChange(value) {
 	const gwei = 1e18;
-	const percent = (70 / 100) * value;
+	const percent = 0.7 * value;
 	money = percent * gwei;
 	buildBonkler();
 }
 
-function handleName(value) {
-	bonklerName = value;
-}
-
-function handleSave() {
+function handleSave(bonklerImage, bonklerName) {
 	const canvas = document.createElement("canvas");
 	const ctx = canvas.getContext("2d");
 	const img = new Image();
@@ -399,5 +393,5 @@ function handleSave() {
 		element.click();
 		document.body.removeChild(element);
 	};
-	img.src = document.getElementById("Bonkler").src; // The external image URL
+	img.src = bonklerImage.src;
 }
