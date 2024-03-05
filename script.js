@@ -80,6 +80,7 @@ const data = {
 		{ key: "14", value: "GUN!!!" },
 		{ key: "15", value: "GameCube" },
 		{ key: "42", value: "Herring Brain Box" },
+		{ key: "43", value: "iDog" },
 		{ key: "26", value: "Jellycat Sun" },
 		{ key: "16", value: "Jiangshan Cigarettes" },
 		{ key: "17", value: "Joli Cat" },
@@ -107,7 +108,6 @@ const data = {
 		{ key: "38", value: "Water Hoop Game" },
 		{ key: "39", value: "Wonder Vise" },
 		{ key: "40", value: "YMO" },
-		{ key: "43", value: "iDog" },
 	],
 	Body: [
 		{ key: "32", value: "#BASEDRETARDGANG Vol. 1" },
