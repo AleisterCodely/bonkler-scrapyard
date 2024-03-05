@@ -369,8 +369,9 @@ function buildBonkler() {
 
 function handleMoneyChange(value) {
 	const gwei = 1e18;
-	const percent = 0.7 * value;
-	money = percent * gwei;
+	const val = value * gwei;
+	money = Math.ceil((0.7 * val) / 1e15) * 1e15;
+	console.log(money);
 	buildBonkler();
 }
 
