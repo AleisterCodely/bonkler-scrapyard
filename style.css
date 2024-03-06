@@ -79,7 +79,7 @@ a {
 
 img.bonkler {
 	image-rendering: pixelated;
-	max-width: 100vw;
+	max-width: 100%;
 }
 
 /* for downloading bonkler img in creator. not added to the DOM */
@@ -960,8 +960,8 @@ tr:nth-child(even) {
 	select,
 	input {
 		height: 36px;
-		min-width: 95vw;
-		max-width: 95vw;
+		min-width: 90vw;
+		max-width: 90vw;
 		margin: 0 -1px;
 	}
 	#SaveBonkler {

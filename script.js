@@ -35,8 +35,8 @@ const data = {
 		{ key: "31", value: "The Moon Zone" },
 	],
 	Armor: [
-		{ key: "24", value: "Adamantine" },
 		{ key: "23", value: "Adamantine Trim" },
+		{ key: "24", value: "Adamantine" },
 		{ key: "26", value: "Black" },
 		{ key: "25", value: "Black Trim" },
 		{ key: "28", value: "Bronze" },
@@ -63,11 +63,11 @@ const data = {
 		{ key: "21", value: "White Trim" },
 	],
 	Head: [
+		{ key: "45", value: "Blender Sphere" },
 		{ key: "41", value: "Arcade Stick" },
 		{ key: "46", value: "Asus W5Fe" },
 		{ key: "47", value: "Bear Statue" },
 		{ key: "48", value: "Beauty:Beast CD" },
-		{ key: "45", value: "Blender Sphere" },
 		{ key: "50", value: "Buddha Machine" },
 		{ key: "51", value: "Bwooom Cube" },
 		{ key: "52", value: "Chicken Sandwich" },
@@ -110,8 +110,8 @@ const data = {
 		{ key: "40", value: "YMO" },
 	],
 	Body: [
-		{ key: "32", value: "#BASEDRETARDGANG Vol. 1" },
 		{ key: "35", value: "$2 Phone" },
+		{ key: "32", value: "#BASEDRETARDGANG Vol. 1" },
 		{ key: "31", value: "Another Freaking Mech" },
 		{ key: "37", value: "Beetle in Resin" },
 		{ key: "38", value: "Boxed Garage Kit" },
@@ -185,8 +185,8 @@ const data = {
 		{ key: "34", value: "�?�" },
 	],
 	Hand: [
-		{ key: "34", value: "Aghanim's Scepter" },
 		{ key: "38", value: "American Flag" },
+		{ key: "34", value: "Aghanim's Scepter" },
 		{ key: "39", value: "Ancient Godsword" },
 		{ key: "22", value: "Ape Escape Net" },
 		{ key: "40", value: "Armed Threat" },
