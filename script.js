@@ -317,6 +317,7 @@ let templateState = {
 
 document.addEventListener("DOMContentLoaded", function () {
 	const saveButton = document.getElementById("SaveBonkler");
+	const randomButton = document.getElementById("RandomBonkler");
 	const bonklerMoneyInput = document.getElementById("BonklerMoney");
 	const bonklerNameInput = document.getElementById("creator-bonkler-name");
 	const bonklerImage = document.getElementById("Bonkler");
@@ -325,6 +326,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	saveButton.addEventListener("click", () =>
 		handleSave(bonklerImage, bonklerName)
 	);
+	randomButton.addEventListener("click", () => {
+		handleRandom();
+	});
 	bonklerMoneyInput.addEventListener("change", (event) =>
 		handleMoneyChange(event.target.value)
 	);
@@ -371,7 +375,6 @@ function handleMoneyChange(value) {
 	const gwei = 1e18;
 	const val = value * gwei;
 	money = Math.ceil((0.7 * val) / 1e15) * 1e15;
-	console.log(money);
 	buildBonkler();
 }
 
@@ -395,4 +398,15 @@ function handleSave(bonklerImage, bonklerName) {
 		document.body.removeChild(element);
 	};
 	img.src = bonklerImage.src;
+}
+
+function handleRandom() {
+	const cats = Object.keys(data);
+	for (item of cats) {
+		let randomItem =
+			data[item][Math.floor(Math.random() * data[item].length)].key;
+		templateState[item] = randomItem;
+		document.getElementById(item).value = randomItem;
+	}
+	buildBonkler();
 }

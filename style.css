@@ -430,17 +430,6 @@ img.bonkler {
 		font-weight: bold;
 	}
 
-	#random-bonkler,
-	#SaveBonkler {
-		background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_inactive.svg")
-			no-repeat;
-	}
-	#random-bonkler:active,
-	#SaveBonkler:active {
-		background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_active.svg")
-			no-repeat;
-	}
-
 	select,
 	input {
 		min-width: 95%;
@@ -932,17 +921,27 @@ tr:nth-child(even) {
 	grid-template-columns: 2;
 }
 
-#random-bonkler {
+#SaveBonkler {
+	grid-column: 2;
+	font-weight: bold !important;
+	font-size: var(--medium) !important;
+}
+
+#RandomBonkler {
 	grid-column: 1;
 	font-weight: bold !important;
 	font-size: var(--medium) !important;
 }
 
+#RandomBonkler,
 #SaveBonkler {
-	margin: 20px;
-	grid-column: 1;
-	font-weight: bold !important;
-	font-size: var(--medium) !important;
+	background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_inactive.svg")
+		no-repeat;
+}
+#RandomBonkler:active,
+#SaveBonkler:active {
+	background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_active.svg")
+		no-repeat;
 }
 
 @media (max-aspect-ratio: 5/4) {
@@ -964,8 +963,10 @@ tr:nth-child(even) {
 		max-width: 90vw;
 		margin: 0 -1px;
 	}
-	#SaveBonkler {
+	#SaveBonkler,
+	#RandomBonkler {
+		margin-top: 15px;
 		height: 52px;
-		background: antiquewhite;
+		max-width: 152px;
 	}
 }
