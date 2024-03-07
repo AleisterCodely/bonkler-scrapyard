@@ -307,14 +307,14 @@ const gwei = 1e18;
 
 let bonklerName = "";
 let templateState = {
-	BG: "00",
-	Armor: "00",
-	Body: "00",
-	Head: "00",
-	Face: "00",
-	Hand: "00",
-	Offhand: "00",
-	Pilot: "00",
+	BG: "33",
+	Armor: "23",
+	Body: "35",
+	Head: "45",
+	Face: "36",
+	Hand: "38",
+	Offhand: "40",
+	Pilot: "33",
 };
 
 function getURLParams() {
@@ -502,8 +502,6 @@ function shareImage(blob) {
 		navigator
 			.share({
 				files: [file],
-				title: name,
-				text: "Check out my Bonkler! " + window.location,
 			})
 			.catch((e) => {
 				if (!e.toString().includes("AbortError")) {
