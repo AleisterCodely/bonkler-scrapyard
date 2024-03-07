@@ -330,6 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const params = getURLParams();
 	const saveButton = document.getElementById("SaveBonkler");
 	const randomButton = document.getElementById("RandomBonkler");
+	const shareButton = document.getElementById("ShareBonkler");
 	const bonklerMoneyInput = document.getElementById("BonklerMoney");
 	const bonklerNameInput = document.getElementById("creator-bonkler-name");
 	const bonklerImage = document.getElementById("Bonkler");
@@ -343,6 +344,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	randomButton.addEventListener("click", () => {
 		handleRandom();
 	});
+	shareButton.addEventListener("click", () => {
+		handleShare();
+	});
+
+	// Input stuff
 	bonklerMoneyInput.addEventListener("change", (event) =>
 		handleMoneyChange(event.target.value)
 	);
@@ -487,4 +493,42 @@ function handleRandom() {
 		document.getElementById(item).value = randomItem;
 	}
 	buildBonkler();
+}
+
+function shareImage(blob) {
+	const name = bonklerName != "" ? bonklerName : "Bonkler";
+	if (navigator.share) {
+		const file = new File([blob], name + ".png", { type: "image/png" });
+		navigator
+			.share({
+				files: [file],
+				title: name,
+				text: "Check out my Bonkler!",
+			})
+			.catch((error) => {
+				alert("Something went wrong, could not share image");
+			});
+	} else {
+		alert("Web Share API is not supported in your browser.");
+	}
+}
+
+function blobbifyBonkler(image, callback) {
+	const canvas = document.createElement("canvas");
+	const ctx = canvas.getContext("2d");
+	const img = new Image();
+
+	img.onload = function () {
+		canvas.width = img.width;
+		canvas.height = img.height;
+		ctx.drawImage(img, 0, 0);
+		canvas.toBlob(callback, "image/png");
+	};
+	img.crossOrigin = "Anonymous";
+	img.src = image.src;
+}
+
+function handleShare() {
+	const bonklerImage = document.getElementById("Bonkler");
+	blobbifyBonkler(bonklerImage, shareImage);
 }

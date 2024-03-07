@@ -411,6 +411,7 @@ img.bonkler {
 		justify-content: center;
 		align-items: center;
 		border-top: solid 2px var(--grey3);
+		height: 55px;
 	}
 	.trait-wrapper:last-child {
 		border-bottom: solid 2px var(--grey3);
@@ -887,6 +888,7 @@ tr:nth-child(even) {
 }
 
 #trait-selector-container {
+	height: auto;
 	box-shadow: inset 2px 2px 3px var(--border-shadow),
 		inset -2px -2px 3px var(--border-shadow);
 	display: flex;
@@ -933,13 +935,22 @@ tr:nth-child(even) {
 	font-size: var(--medium) !important;
 }
 
+#ShareBonkler {
+	margin-top: 20px;
+	grid-column: 1;
+	font-weight: bold !important;
+	font-size: var(--medium) !important;
+}
+
 #RandomBonkler,
-#SaveBonkler {
+#SaveBonkler,
+#ShareBonkler {
 	background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_inactive.svg")
 		no-repeat;
 }
 #RandomBonkler:active,
-#SaveBonkler:active {
+#SaveBonkler:active,
+#ShareBonkler:active {
 	background: url("https://bonkler.remilia.org/Assets/Desktop/Creator/random_btn_active.svg")
 		no-repeat;
 }
@@ -964,7 +975,8 @@ tr:nth-child(even) {
 		margin: 0 -1px;
 	}
 	#SaveBonkler,
-	#RandomBonkler {
+	#RandomBonkler,
+	#ShareBonkler {
 		margin-top: 15px;
 		height: 52px;
 		max-width: 152px;
