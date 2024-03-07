@@ -303,7 +303,7 @@ const data = {
 	],
 };
 
-let bonklerName = "Bonkler";
+let bonklerName = "";
 let templateState = {
 	BG: "00",
 	Armor: "00",
@@ -333,11 +333,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		handleMoneyChange(event.target.value)
 	);
 	bonklerNameInput.addEventListener("change", (event) => {
-		bonklerName = event.target.value || "Bonkler";
+		handleNameChange(event.target.value);
 	});
 
 	handleMoneyChange(bonklerMoneyInput.value);
-	bonklerName = bonklerNameInput.value || "Bonkler";
+	bonklerName = bonklerNameInput.value || "";
 });
 
 function populateSelectors(data) {
@@ -365,16 +365,45 @@ function handleSelection(category, key) {
 
 function buildBonkler() {
 	const template = Object.values(templateState).join("");
-	const imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4&reserve=${
-		money || ""
-	}`;
+	let imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4`;
+
+	// Check if money exists and is not 0, then append it to the URL
+	if (money && money !== 0) {
+		imageUrl += `&reserve=${money}`;
+	}
+
+	// Update the Bonkler image source
 	document.getElementById("Bonkler").src = imageUrl;
+
+	// Update the browser URL without reloading the page
+	// Construct a new URL with the template and, optionally, the money parameter
+	const currentUrl = window.location.href;
+	const baseUrl = currentUrl.includes("?")
+		? currentUrl.substring(0, currentUrl.indexOf("?"))
+		: currentUrl;
+	let newUrl = `${baseUrl}?gen=${template}`;
+
+	if (money && money !== 0) {
+		newUrl += `&money=${money}`;
+	}
+
+	if (bonklerName && bonklerName != "") {
+		newUrl += `&name=${bonklerName}`;
+	}
+
+	// Use pushState to update the URL
+	window.history.pushState({ path: newUrl }, "", newUrl);
 }
 
 function handleMoneyChange(value) {
 	const gwei = 1e18;
 	const val = value * gwei;
 	money = Math.ceil((0.7 * val) / 1e15) * 1e15;
+	buildBonkler();
+}
+
+function handleNameChange(value) {
+	bonklerName = value || "";
 	buildBonkler();
 }
 
@@ -392,7 +421,10 @@ function handleSave(bonklerImage, bonklerName) {
 
 		const element = document.createElement("a");
 		element.setAttribute("href", dataURL);
-		element.setAttribute("download", `${bonklerName}.png`);
+		element.setAttribute(
+			"download",
+			`${bonklerName != "" ? bonklerName : "Bonkler"}.png`
+		);
 		document.body.appendChild(element);
 		element.click();
 		document.body.removeChild(element);
