@@ -503,10 +503,12 @@ function shareImage(blob) {
 			.share({
 				files: [file],
 				title: name,
-				text: "Check out my Bonkler!",
+				text: "Check out my Bonkler! " + window.location,
 			})
-			.catch((error) => {
-				alert("Something went wrong, could not share image");
+			.catch((e) => {
+				if (!e.toString().includes("AbortError")) {
+					alert("Something went wrong, could not share image");
+				}
 			});
 	} else {
 		alert("Web Share API is not supported in your browser.");
