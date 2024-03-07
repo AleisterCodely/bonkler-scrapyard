@@ -62,6 +62,43 @@ const data = {
 		{ key: "22", value: "White" },
 		{ key: "21", value: "White Trim" },
 	],
+	Body: [
+		{ key: "35", value: "$2 Phone" },
+		{ key: "32", value: "#BASEDRETARDGANG Vol. 1" },
+		{ key: "31", value: "Another Freaking Mech" },
+		{ key: "37", value: "Beetle in Resin" },
+		{ key: "38", value: "Boxed Garage Kit" },
+		{ key: "12", value: "Burger Bonkler Laser" },
+		{ key: "26", value: "Chinese Sprite" },
+		{ key: "39", value: "Cosmic Ray Detectors" },
+		{ key: "40", value: "Dark Magican Girl" },
+		{ key: "13", value: "Fire Bonkler Laser" },
+		{ key: "41", value: "Fragile Hearts" },
+		{ key: "42", value: "Guam" },
+		{ key: "43", value: "Harajuku Motorola" },
+		{ key: "44", value: "Jacob Jensen T3" },
+		{ key: "10", value: "Jade Cabbage" },
+		{ key: "33", value: "Judd Chair" },
+		{ key: "14", value: "Lego Skeleton" },
+		{ key: "15", value: "Noctua Heatsink" },
+		{ key: "16", value: "Orion Can" },
+		{ key: "18", value: "Pelican Terminal" },
+		{ key: "20", value: "Red and Blue Chair" },
+		{ key: "21", value: "Rei Lighter" },
+		{ key: "36", value: "Rilakkuma" },
+		{ key: "22", value: "Rolliflex" },
+		{ key: "34", value: "Rug" },
+		{ key: "23", value: "Rummikub" },
+		{ key: "24", value: "Sony CD Player" },
+		{ key: "17", value: "Sony PVM" },
+		{ key: "19", value: "Sony PocketStation" },
+		{ key: "25", value: "Sony Tablet" },
+		{ key: "27", value: "Suit" },
+		{ key: "11", value: "Tekken King" },
+		{ key: "28", value: "Valet Chair" },
+		{ key: "29", value: "Vending Machine" },
+		{ key: "30", value: "YMO Tour" },
+	],
 	Head: [
 		{ key: "45", value: "Blender Sphere" },
 		{ key: "41", value: "Arcade Stick" },
@@ -108,43 +145,6 @@ const data = {
 		{ key: "38", value: "Water Hoop Game" },
 		{ key: "39", value: "Wonder Vise" },
 		{ key: "40", value: "YMO" },
-	],
-	Body: [
-		{ key: "35", value: "$2 Phone" },
-		{ key: "32", value: "#BASEDRETARDGANG Vol. 1" },
-		{ key: "31", value: "Another Freaking Mech" },
-		{ key: "37", value: "Beetle in Resin" },
-		{ key: "38", value: "Boxed Garage Kit" },
-		{ key: "12", value: "Burger Bonkler Laser" },
-		{ key: "26", value: "Chinese Sprite" },
-		{ key: "39", value: "Cosmic Ray Detectors" },
-		{ key: "40", value: "Dark Magican Girl" },
-		{ key: "13", value: "Fire Bonkler Laser" },
-		{ key: "41", value: "Fragile Hearts" },
-		{ key: "42", value: "Guam" },
-		{ key: "43", value: "Harajuku Motorola" },
-		{ key: "44", value: "Jacob Jensen T3" },
-		{ key: "10", value: "Jade Cabbage" },
-		{ key: "33", value: "Judd Chair" },
-		{ key: "14", value: "Lego Skeleton" },
-		{ key: "15", value: "Noctua Heatsink" },
-		{ key: "16", value: "Orion Can" },
-		{ key: "18", value: "Pelican Terminal" },
-		{ key: "20", value: "Red and Blue Chair" },
-		{ key: "21", value: "Rei Lighter" },
-		{ key: "36", value: "Rilakkuma" },
-		{ key: "22", value: "Rolliflex" },
-		{ key: "34", value: "Rug" },
-		{ key: "23", value: "Rummikub" },
-		{ key: "24", value: "Sony CD Player" },
-		{ key: "17", value: "Sony PVM" },
-		{ key: "19", value: "Sony PocketStation" },
-		{ key: "25", value: "Sony Tablet" },
-		{ key: "27", value: "Suit" },
-		{ key: "11", value: "Tekken King" },
-		{ key: "28", value: "Valet Chair" },
-		{ key: "29", value: "Vending Machine" },
-		{ key: "30", value: "YMO Tour" },
 	],
 	Face: [
 		{ key: "36", value: "'o'" },
@@ -303,6 +303,8 @@ const data = {
 	],
 };
 
+const gwei = 1e18;
+
 let bonklerName = "";
 let templateState = {
 	BG: "00",
@@ -315,7 +317,17 @@ let templateState = {
 	Pilot: "00",
 };
 
+function getURLParams() {
+	const searchParams = new URLSearchParams(window.location.search);
+	const params = {};
+	for (let param of searchParams) {
+		params[param[0]] = param[1];
+	}
+	return params;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+	const params = getURLParams();
 	const saveButton = document.getElementById("SaveBonkler");
 	const randomButton = document.getElementById("RandomBonkler");
 	const bonklerMoneyInput = document.getElementById("BonklerMoney");
@@ -323,6 +335,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	const bonklerImage = document.getElementById("Bonkler");
 
 	populateSelectors(data);
+
+	// Button stuff
 	saveButton.addEventListener("click", () =>
 		handleSave(bonklerImage, bonklerName)
 	);
@@ -338,6 +352,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	handleMoneyChange(bonklerMoneyInput.value);
 	bonklerName = bonklerNameInput.value || "";
+
+	// Param stuff
+	if (params.name) {
+		bonklerName = params.name;
+		document.getElementById("creator-bonkler-name").value = bonklerName;
+	}
+
+	if (params.money && params.money !== "0") {
+		handleParamMoney(parseInt(params.money, 10)); // Adjust the input based on the reversed calculation
+		handleMoneyChange(document.getElementById("BonklerMoney").value); // To reflect this change and update UI accordingly
+	}
+
+	if (params.gen) {
+		const categories = Object.keys(data);
+		const genValues = params.gen.match(/.{1,2}/g);
+
+		if (genValues.length === categories.length) {
+			genValues.forEach((value, index) => {
+				const category = categories[index];
+				const selectElement = document.getElementById(category);
+				if (selectElement) {
+					selectElement.value = value;
+					handleSelection(category, value);
+				}
+			});
+		}
+	}
 });
 
 function populateSelectors(data) {
@@ -396,10 +437,15 @@ function buildBonkler() {
 }
 
 function handleMoneyChange(value) {
-	const gwei = 1e18;
 	const val = value * gwei;
 	money = Math.ceil((0.7 * val) / 1e15) * 1e15;
 	buildBonkler();
+}
+
+function handleParamMoney(value) {
+	let val = value / 1e15 / 0.7;
+	val = val / (gwei / 1e15);
+	document.getElementById("BonklerMoney").value = val;
 }
 
 function handleNameChange(value) {
