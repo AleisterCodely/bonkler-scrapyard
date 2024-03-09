@@ -1,3 +1,8 @@
 # bonkler-scrapyard
 
-A recreation of the bonkler creator frontend, it's ugly as sin right now, might spruce up later, or not, I'm lazy.
+A recreation of the bonkler creator frontend. 
+
+# Features 
+Configure, build, save and share bonkler builds with custom parts and even reserve number!
+
+And who knows, maybe do something cool with them in the future? There's space for one ome button after all...
