@@ -471,38 +471,8 @@ img.bonkler {
 		no-repeat;
 }
 
-.increment:active {
-	background: url("https://bonkler.remilia.org/Assets/Desktop/Home/increase_bid_active.svg")
-		no-repeat;
-}
-.decrement:active {
-	background: url("https://bonkler.remilia.org/Assets/Desktop/Home/decrease_bid_active.svg")
-		no-repeat;
-}
 .confirm:active {
 	background: url("https://bonkler.remilia.org/Assets/Desktop/Home/checkmark_active.svg")
-		no-repeat;
-}
-
-.burn {
-	background: url("https://bonkler.remilia.org/Assets/Desktop/Gallery/burn_inactive.svg")
-		no-repeat;
-}
-.burnt {
-	background: url("https://bonkler.remilia.org/Assets/Desktop/Gallery/burnt_active.svg")
-		no-repeat;
-}
-
-.burn,
-.burnt {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-}
-
-.burn:active {
-	background: url("https://bonkler.remilia.org/Assets/Desktop/Gallery/burn_active.svg")
 		no-repeat;
 }
 
