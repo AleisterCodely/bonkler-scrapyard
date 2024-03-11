@@ -1,6 +1,5 @@
 # bonkler-scrapyard
-
-A recreation of the bonkler creator frontend. 
+A recreation of the bonkler creator frontend. Accesible at: https://aleistercodely.github.io/bonkler-scrapyard/
 
 # Features 
 Configure, build, save and share bonkler builds with custom parts and even reserve number!
