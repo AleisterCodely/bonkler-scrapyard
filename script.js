@@ -317,6 +317,11 @@ let templateState = {
 	Pilot: "33",
 };
 
+// History stuff
+let fromURL = false;
+let userIsCooking = false;
+const bonklerHistory = [];
+
 function getURLParams() {
 	const searchParams = new URLSearchParams(window.location.search);
 	const params = {};
@@ -360,6 +365,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	bonklerName = bonklerNameInput.value || "";
 
 	// Param stuff
+	if (params.name || params.money || params.money) {
+		fromURL = true;
+	}
+
 	if (params.name) {
 		bonklerName = params.name;
 		document.getElementById("creator-bonkler-name").value = bonklerName;
@@ -375,10 +384,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		const genValues = params.gen.match(/.{1,2}/g);
 
 		if (genValues.length === categories.length) {
-			genValues.forEach((value, index) => {
+			genValues.forEach((value, index, valarray) => {
 				const category = categories[index];
 				const selectElement = document.getElementById(category);
-				if (selectElement) {
+				if (selectElement && index === valarray.length - 1) {
+					selectElement.value = value;
+					handleSelection(category, value, true);
+				} else {
 					selectElement.value = value;
 					handleSelection(category, value);
 				}
@@ -400,14 +412,14 @@ function populateSelectors(data) {
 		});
 
 		selectElement.addEventListener("change", (event) =>
-			handleSelection(category, event.target.value)
+			handleSelection(category, event.target.value, true)
 		);
 	});
 }
 
-function handleSelection(category, key) {
+function handleSelection(category, key, trigger) {
 	templateState[category] = key.padStart(2, "0");
-	buildBonkler();
+	trigger && buildBonkler();
 }
 
 function buildBonkler() {
@@ -436,6 +448,15 @@ function buildBonkler() {
 
 	if (bonklerName && bonklerName != "") {
 		newUrl += `&name=${bonklerName}`;
+	}
+
+	// Also update Bonkler history
+	if (fromURL || userIsCooking) {
+		bonklerHistory.push(template);
+	}
+
+	if (!fromURL) {
+		userIsCooking = true;
 	}
 
 	// Use pushState to update the URL
