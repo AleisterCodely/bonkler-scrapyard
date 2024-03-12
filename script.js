@@ -304,6 +304,7 @@ const data = {
 };
 
 const gwei = 1e18;
+let money = null;
 
 let bonklerName = "";
 let templateState = {
@@ -361,11 +362,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		handleNameChange(event.target.value);
 	});
 
-	handleMoneyChange(bonklerMoneyInput.value);
-	bonklerName = bonklerNameInput.value || "";
-
 	// Param stuff
-	if (params.name || params.money || params.money) {
+	if (params.name || params.money || params.gen) {
 		fromURL = true;
 	}
 
@@ -376,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (params.money && params.money !== "0") {
 		handleParamMoney(parseInt(params.money, 10)); // Adjust the input based on the reversed calculation
-		handleMoneyChange(document.getElementById("BonklerMoney").value); // To reflect this change and update UI accordingly
+		handleMoneyChange(document.getElementById("BonklerMoney").value, false); // To reflect this change and update UI accordingly
 	}
 
 	if (params.gen) {
@@ -397,6 +395,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 		}
 	}
+
+	if (!fromURL) {
+		userIsCooking = true;
+		buildBonkler();
+	}
+
+	bonklerName = bonklerNameInput.value || "";
 });
 
 function populateSelectors(data) {
@@ -422,7 +427,7 @@ function handleSelection(category, key, trigger) {
 	trigger && buildBonkler();
 }
 
-function buildBonkler() {
+function buildBonkler(saveState) {
 	const template = Object.values(templateState).join("");
 	let imageUrl = `https://bonklerimg.remilia.org/cgi-bin/bonklercgi?gen=${template}&meta=no&factor=4`;
 
@@ -451,22 +456,18 @@ function buildBonkler() {
 	}
 
 	// Also update Bonkler history
-	if (fromURL || userIsCooking) {
+	if ((fromURL || userIsCooking) && saveState !== false) {
 		bonklerHistory.push(template);
-	}
-
-	if (!fromURL) {
-		userIsCooking = true;
 	}
 
 	// Use pushState to update the URL
 	window.history.pushState({ path: newUrl }, "", newUrl);
 }
 
-function handleMoneyChange(value) {
+function handleMoneyChange(value, saveState) {
 	const val = value * gwei;
 	money = Math.ceil((0.7 * val) / 1e15) * 1e15;
-	buildBonkler();
+	buildBonkler(saveState);
 }
 
 function handleParamMoney(value) {
