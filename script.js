@@ -439,8 +439,7 @@ function buildBonkler(saveState) {
 	// Update the Bonkler image source
 	document.getElementById("Bonkler").src = imageUrl;
 
-	// Update the browser URL without reloading the page
-	// Construct a new URL with the template and, optionally, the money parameter
+	// Update the browser URL without reloading the page and construct a new URL with the template and, optionally, the money parameter
 	const currentUrl = window.location.href;
 	const baseUrl = currentUrl.includes("?")
 		? currentUrl.substring(0, currentUrl.indexOf("?"))
