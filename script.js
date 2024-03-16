@@ -485,7 +485,7 @@ function handleSave(bonklerImage, bonklerName) {
 	const ctx = canvas.getContext("2d");
 	const img = new Image();
 
-	img.crossOrigin = "Anonymous"; // Attempt to request CORS permission
+	img.crossOrigin = "Anonymous";
 	img.onload = function () {
 		canvas.width = img.width;
 		canvas.height = img.height;
